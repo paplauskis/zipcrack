@@ -2,5 +2,5 @@ namespace zipcrack;
 
 public interface IZipCracker
 {
-    void Execute();
+    string? GetPassword();
 }
