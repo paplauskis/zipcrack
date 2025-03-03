@@ -1,4 +1,4 @@
-namespace zipcrack;
+namespace zipcrack.Interfaces;
 
 public interface IZipCracker
 {

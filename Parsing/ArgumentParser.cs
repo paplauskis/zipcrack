@@ -1,6 +1,6 @@
 using zipcrack.Enums;
 
-namespace zipcrack;
+namespace zipcrack.Parsing;
 
 public class ArgumentParser
 {
