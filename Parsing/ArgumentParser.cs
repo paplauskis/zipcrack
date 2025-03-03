@@ -2,7 +2,7 @@ using zipcrack.Enums;
 
 namespace zipcrack;
 
-public abstract class ArgumentParser
+public class ArgumentParser
 {
     protected readonly string[] _argsArray;
     protected string? _filePath;
@@ -27,6 +27,13 @@ public abstract class ArgumentParser
         _argsArray = args;
         RemoveHyphens();
         SetFilePath();
+    }
+
+    public static AttackMethod ParseAttackMethod(string method)
+    {
+        if (method == "--dict") return AttackMethod.Dictionary;
+
+        return AttackMethod.BruteForce;
     }
 
     private void RemoveHyphens()
