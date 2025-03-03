@@ -1,4 +1,5 @@
 using zipcrack.Enums;
+using zipcrack.Helpers;
 
 namespace zipcrack.Parsing;
 
@@ -15,7 +16,7 @@ public class ArgumentParser
         set
         {
             if (!value.Contains(".zip"))            {
-                throw new ArgumentException($"Invalid file path: {value}");
+                throw new ArgumentException($"Invalid file: {value}");
             }
             
             _filePath = value;
@@ -27,6 +28,11 @@ public class ArgumentParser
         _argsArray = args;
         RemoveHyphens();
         SetFilePath();
+        
+        if (!ZipFileChecker.IsFileZip(_filePath))
+        {
+            throw new ArgumentException($"File is not a ZIP file: {_filePath}");
+        }
     }
 
     public static AttackMethod ParseAttackMethod(string method)
