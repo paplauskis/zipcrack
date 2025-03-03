@@ -11,7 +11,7 @@ public class AttackContext
         _zipCracker = cracker;
     }
 
-    public string? Execute()
+    public string? Run()
     {
         return _zipCracker.GetPassword();
     }
