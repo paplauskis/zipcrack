@@ -31,9 +31,7 @@ public class ArgumentParser
 
     public static AttackMethod ParseAttackMethod(string method)
     {
-        if (method == "--dict") return AttackMethod.Dictionary;
-
-        return AttackMethod.BruteForce;
+        return method == "--dict" ? AttackMethod.Dictionary : AttackMethod.BruteForce;
     }
 
     private void RemoveHyphens()
