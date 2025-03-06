@@ -11,7 +11,7 @@ public class ZipPasswordChecker
         _zipFilePath = zipFilePath;
     }
     
-    public bool IsValid(string password)
+    public bool IsValid(string? password)
     {
         if (string.IsNullOrEmpty(password))
         {
