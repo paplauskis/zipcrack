@@ -13,6 +13,11 @@ public class ZipPasswordChecker
     
     public bool IsValid(string password)
     {
+        if (string.IsNullOrEmpty(password))
+        {
+            return false;
+        }
+        
         try
         {
             using (ZipFile zip = new ZipFile(File.OpenRead(_zipFilePath)))
