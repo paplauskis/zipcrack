@@ -8,7 +8,7 @@ public class DictionaryAttack : IZipCracker
 {
     private readonly string _zipFilePath;
     private readonly int _threadCount;
-    private const string TxtFilePath = "TestStrategy.txt"; 
+    private const string TxtFilePath = "TEST.txt"; 
     private readonly ZipPasswordChecker _passwordChecker;
     
     public DictionaryAttack(DictionaryArgumentParser argumentParser)
@@ -25,6 +25,21 @@ public class DictionaryAttack : IZipCracker
 
     private string? SearchPartOfFile(int lineFrom, int lineTo)
     {
-        throw new NotImplementedException();
+        string? line;
+        
+        using (var reader = new StreamReader(TxtFilePath))
+        {
+            for (int i = lineFrom; i <= lineTo; i++)
+            {
+                line = reader.ReadLine();
+                
+                if (_passwordChecker.IsValid(line))
+                {
+                    return line;
+                }
+            }
+        }
+
+        return null;
     }
 }
