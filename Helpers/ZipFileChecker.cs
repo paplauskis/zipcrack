@@ -4,9 +4,11 @@ public static class ZipFileChecker
 {
     public static bool IsFileZip(string zipFilePath)
     {
-        if (!File.Exists(zipFilePath))
+        string fullPath = Path.GetFullPath(zipFilePath);
+        
+        if (!File.Exists(fullPath))
         {
-            throw new FileNotFoundException("File not found", zipFilePath);
+            throw new FileNotFoundException("File not found", fullPath);
         }
 
         byte[] zipSignature = [0x50, 0x4B, 0x03, 0x04];
