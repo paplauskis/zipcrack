@@ -28,26 +28,11 @@ public class DictionaryAttack : IZipCracker
         
         for (int i = 1; i <= _threadCount; i++)
         {
-            int temp = i;
+            int temp = i; //temporary variable, because 'i' value can change during thread execution
+
             var thread = new Thread(() =>
             {
-                string? value;
-                
-                if (temp == 1)
-                {
-                    value = SearchForPassword(0, lineCountPerThread);
-                    if (value != null) password = value;
-                    return;
-                }
-        
-                if (temp == _threadCount)
-                {
-                    value = SearchForPassword(lineCountPerThread * (temp - 1), fileLineCount);
-                    if (value != null) password = value;
-                    return;
-                }
-
-                value = SearchForPassword(lineCountPerThread * (temp - 1), lineCountPerThread * temp);
+                string? value = SearchForPassword(lineCountPerThread * (temp - 1), lineCountPerThread * temp);
                 if (value != null) password = value;
             });
 
