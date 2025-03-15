@@ -24,22 +24,40 @@ public class DictionaryAttack : IZipCracker
         var fileLineCount = File.ReadLines(TxtFilePath).Count();
         var lineCountPerThread = fileLineCount / _threadCount + 1;
         string? password = null;
+        Thread[] threads = new Thread[_threadCount];
         
         for (int i = 1; i <= _threadCount; i++)
         {
-            if (i == 1)
+            int temp = i;
+            var thread = new Thread(() =>
             {
-                password = SearchForPassword(0, lineCountPerThread);
-                continue;
-            }
+                string? value;
+                
+                if (temp == 1)
+                {
+                    value = SearchForPassword(0, lineCountPerThread);
+                    if (value != null) password = value;
+                    return;
+                }
         
-            if (i == _threadCount)
-            {
-                password = SearchForPassword(lineCountPerThread * (i - 1), fileLineCount);
-                continue;
-            }
-            
-            password = SearchForPassword(lineCountPerThread * (i - 1), lineCountPerThread * i);
+                if (temp == _threadCount)
+                {
+                    value = SearchForPassword(lineCountPerThread * (temp - 1), fileLineCount);
+                    if (value != null) password = value;
+                    return;
+                }
+
+                value = SearchForPassword(lineCountPerThread * (temp - 1), lineCountPerThread * temp);
+                if (value != null) password = value;
+            });
+
+            threads[i - 1] = thread;
+            thread.Start();
+        }
+        
+        foreach (var t in threads)
+        {
+            t.Join();
         }
         
         return password;
