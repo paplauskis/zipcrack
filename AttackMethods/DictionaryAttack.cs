@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using zipcrack.Helpers;
 using zipcrack.Interfaces;
 using zipcrack.Parsing;
@@ -20,7 +21,28 @@ public class DictionaryAttack : IZipCracker
     
     public string? GetPassword()
     {
-        return null;
+        var fileLineCount = File.ReadLines(TxtFilePath).Count();
+        var lineCountPerThread = fileLineCount / _threadCount + 1;
+        string? password = null;
+        
+        for (int i = 1; i <= _threadCount; i++)
+        {
+            if (i == 1)
+            {
+                password = SearchForPassword(0, lineCountPerThread);
+                continue;
+            }
+        
+            if (i == _threadCount)
+            {
+                password = SearchForPassword(lineCountPerThread * (i - 1), fileLineCount);
+                continue;
+            }
+            
+            password = SearchForPassword(lineCountPerThread * (i - 1), lineCountPerThread * i);
+        }
+        
+        return password;
     }
     
     private string? SearchForPassword(int lineFrom, int lineTo)
