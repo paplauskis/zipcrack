@@ -22,21 +22,16 @@ public class DictionaryAttack : IZipCracker
     {
         return null;
     }
-
-    private string? SearchPartOfFile(int lineFrom, int lineTo)
+    
+    private string? SearchForPassword(int lineFrom, int lineTo)
     {
-        string? line;
-        
-        using (var reader = new StreamReader(TxtFilePath))
+        var words = File.ReadLines(TxtFilePath).Skip(lineFrom - 1).Take(lineTo - lineFrom + 1);
+
+        foreach (var word in words)
         {
-            for (int i = lineFrom; i <= lineTo; i++)
+            if (_passwordChecker.IsValid(word))
             {
-                line = reader.ReadLine();
-                
-                if (_passwordChecker.IsValid(line))
-                {
-                    return line;
-                }
+                return word;
             }
         }
 
