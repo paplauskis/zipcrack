@@ -5,16 +5,16 @@ namespace zipcrack.Parsing;
 
 public class BruteForceArgumentParser : ArgumentParser
 {
-    private readonly int _minChars;
-    private readonly int _maxChars;
-    private readonly char[] _characters;
+    public int MinChars { get; init; }
+    public int MaxChars { get; init; }
+    public char[] Characters { get; init; }
     
     public BruteForceArgumentParser(string[] args) : base(args)
     {
         AttackMethod = AttackMethod.BruteForce;
-        _minChars = ExtractIntValue(args[1]);
-        _maxChars = ExtractIntValue(args[2]);
-        _characters = AssignCharArray(args[3]);
+        MinChars = ExtractIntValue(args[1]);
+        MaxChars = ExtractIntValue(args[2]);
+        Characters = AssignCharArray(args[3]);
         _filePath = args[4];
     }
 
