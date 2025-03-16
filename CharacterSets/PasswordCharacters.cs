@@ -1,4 +1,4 @@
-namespace zipcrack.PasswordCharacters;
+namespace zipcrack.CharacterSets;
 
 public static class PasswordCharacters
 {
