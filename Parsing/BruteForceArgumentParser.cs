@@ -1,4 +1,5 @@
 using zipcrack.Enums;
+using zipcrack.CharacterSets;
 
 namespace zipcrack.Parsing;
 
@@ -13,7 +14,7 @@ public class BruteForceArgumentParser : ArgumentParser
         AttackMethod = AttackMethod.BruteForce;
         _minChars = ExtractIntValue(args[1]);
         _maxChars = ExtractIntValue(args[2]);
-        // _characters = ;
+        _characters = AssignCharArray(args[3]);
         _filePath = args[4];
     }
 
@@ -35,5 +36,12 @@ public class BruteForceArgumentParser : ArgumentParser
         arg = arg.Substring(equalSignIndex + 1, arg.Length - equalSignIndex - 1);
         
         return arg;
+    }
+
+    private static char[] AssignCharArray(string arg)
+    {
+        string arrayType = ExtractValue(arg);
+
+        return CharsetSelector.GetCharacterSet(arrayType);
     }
 }
