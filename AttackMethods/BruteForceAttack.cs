@@ -3,22 +3,20 @@ using zipcrack.Parsing;
 
 namespace zipcrack.AttackMethods;
 
-public class BruteForceAttack : IZipCracker
+public class BruteForceAttack : BaseAttack
 {
     private readonly int _minPasswordLength;
     private readonly int _maxPasswordLength;
     private readonly char[] _characters;
-    private readonly string _filePath;
     
-    public BruteForceAttack(BruteForceArgumentParser argumentParser)
+    public BruteForceAttack(BruteForceArgumentParser argumentParser) : base(argumentParser.FilePath)
     {
         _minPasswordLength = argumentParser.MinChars;
         _maxPasswordLength = argumentParser.MaxChars;
         _characters = argumentParser.Characters;
-        _filePath = argumentParser.FilePath;
     }
     
-    public string? GetPassword()
+    public override string? GetPassword()
     {
         throw new NotImplementedException();
     }
