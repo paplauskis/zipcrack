@@ -5,21 +5,13 @@ using zipcrack.Parsing;
 
 namespace zipcrack.AttackMethods;
 
-public class DictionaryAttack : IZipCracker
+public class DictionaryAttack : BaseAttack
 {
-    private readonly string _zipFilePath;
-    private readonly int _threadCount;
     private const string TxtFilePath = "TEST.txt"; 
-    private readonly ZipPasswordChecker _passwordChecker;
     
-    public DictionaryAttack(DictionaryArgumentParser argumentParser)
-    {
-        _zipFilePath = argumentParser.FilePath;
-        _threadCount = Environment.ProcessorCount;
-        _passwordChecker = new ZipPasswordChecker(_zipFilePath);
-    }
+    public DictionaryAttack(DictionaryArgumentParser argumentParser) : base(argumentParser.FilePath) {}
     
-    public string? GetPassword()
+    public override string? GetPassword()
     {
         var fileLineCount = File.ReadLines(TxtFilePath).Count();
         var lineCountPerThread = fileLineCount / _threadCount + 1;
