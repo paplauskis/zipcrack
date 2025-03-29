@@ -47,6 +47,26 @@ public class ArgumentParser
             _argsArray[i] = _argsArray[i].Replace("-", "");
         }
     }
+    
+    protected static int ExtractIntValue(string arg)
+    {
+        arg = ExtractValue(arg);
+
+        if (int.TryParse(arg, out int result))
+        {
+            return result;
+        }
+        
+        throw new ArgumentException("argument is not an integer");
+    }
+
+    protected static string ExtractValue(string arg)
+    {
+        int equalSignIndex = arg.IndexOf('=');
+        arg = arg.Substring(equalSignIndex + 1, arg.Length - equalSignIndex - 1);
+        
+        return arg;
+    }
 
     private void SetFilePath()
     {
