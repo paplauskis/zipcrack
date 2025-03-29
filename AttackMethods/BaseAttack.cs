@@ -10,10 +10,10 @@ public abstract class BaseAttack : IZipCracker
     protected readonly ZipPasswordChecker _passwordChecker;
     protected string? _password;
 
-    protected BaseAttack(string filePath)
+    protected BaseAttack(string filePath, int threadCount)
     {
         _zipFilePath = filePath;
-        _threadCount = Environment.ProcessorCount;
+        _threadCount = threadCount;
         _passwordChecker = new ZipPasswordChecker(filePath);
     }
 
