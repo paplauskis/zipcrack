@@ -8,6 +8,7 @@ public abstract class BaseAttack : IZipCracker
     protected readonly string _zipFilePath;
     protected readonly int _threadCount;
     protected readonly ZipPasswordChecker _passwordChecker;
+    protected string? _password;
 
     protected BaseAttack(string filePath)
     {
