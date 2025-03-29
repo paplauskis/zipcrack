@@ -90,7 +90,9 @@ public class ArgumentParser
         {
             _threadCount = Environment.ProcessorCount;
         }
-
-        _threadCount = count;
+        else
+        {
+            _threadCount = count;
+        }
     }
 }
