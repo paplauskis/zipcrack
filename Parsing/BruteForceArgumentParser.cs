@@ -18,26 +18,6 @@ public class BruteForceArgumentParser : ArgumentParser
         _filePath = args[4];
     }
 
-    private static int ExtractIntValue(string arg)
-    {
-        arg = ExtractValue(arg);
-
-        if (int.TryParse(arg, out int result))
-        {
-            return result;
-        }
-        
-        throw new ArgumentException("argument is not an integer");
-    }
-
-    private static string ExtractValue(string arg)
-    {
-        int equalSignIndex = arg.IndexOf('=');
-        arg = arg.Substring(equalSignIndex + 1, arg.Length - equalSignIndex - 1);
-        
-        return arg;
-    }
-
     private static char[] AssignCharArray(string arg)
     {
         string arrayType = ExtractValue(arg);
