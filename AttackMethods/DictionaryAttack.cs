@@ -9,7 +9,7 @@ public class DictionaryAttack : BaseAttack
 {
     private const string TxtFilePath = "TEST.txt";
     
-    public DictionaryAttack(DictionaryArgumentParser argumentParser) : base(argumentParser.FilePath) {}
+    public DictionaryAttack(DictionaryArgumentParser argumentParser) : base(argumentParser.FilePath, argumentParser.ThreadCount) {}
     
     public override string? GetPassword()
     {
