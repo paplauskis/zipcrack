@@ -7,7 +7,7 @@ namespace zipcrack.AttackMethods;
 
 public class DictionaryAttack : BaseAttack
 {
-    private const string TxtFilePath = "TEST.txt"; 
+    private const string TxtFilePath = "TEST.txt";
     
     public DictionaryAttack(DictionaryArgumentParser argumentParser) : base(argumentParser.FilePath) {}
     
@@ -15,7 +15,6 @@ public class DictionaryAttack : BaseAttack
     {
         var fileLineCount = File.ReadLines(TxtFilePath).Count();
         var lineCountPerThread = fileLineCount / _threadCount + 1;
-        string? password = null;
         Thread[] threads = new Thread[_threadCount];
         
         for (int i = 1; i <= _threadCount; i++)
@@ -25,7 +24,7 @@ public class DictionaryAttack : BaseAttack
             var thread = new Thread(() =>
             {
                 string? value = SearchForPassword(lineCountPerThread * (temp - 1), lineCountPerThread * temp);
-                if (value != null) password = value;
+                if (value != null) _password = value;
             });
 
             threads[i - 1] = thread;
@@ -37,7 +36,7 @@ public class DictionaryAttack : BaseAttack
             t.Join();
         }
         
-        return password;
+        return _password;
     }
     
     private string? SearchForPassword(int lineFrom, int lineTo)
@@ -46,10 +45,9 @@ public class DictionaryAttack : BaseAttack
 
         foreach (var word in words)
         {
-            if (_passwordChecker.IsValid(word))
-            {
-                return word;
-            }
+            if (_password != null) break;
+            
+            if (_passwordChecker.IsValid(word)) return word;
         }
 
         return null;
