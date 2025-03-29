@@ -23,6 +23,8 @@ public class ArgumentParser
             _filePath = value;
         }
     }
+    
+    public int ThreadCount => _threadCount;
 
     protected ArgumentParser(string[] args)
     {
