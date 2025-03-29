@@ -7,6 +7,7 @@ public class ArgumentParser
 {
     protected readonly string[] _argsArray;
     protected string? _filePath;
+    protected int _threadCount;
 
     public AttackMethod AttackMethod { get; protected set; }
 
@@ -28,6 +29,7 @@ public class ArgumentParser
         _argsArray = args;
         RemoveHyphens();
         SetFilePath();
+        SetThreadCount(args[^1]);
         
         if (!ZipFileChecker.IsFileZip(_filePath))
         {
@@ -76,5 +78,17 @@ public class ArgumentParser
         {
             throw new ArgumentException($"ZIP file not specified: {_filePath}");
         }
+    }
+
+    private void SetThreadCount(string arg)
+    {
+        int count = ExtractIntValue(arg);
+
+        if (count <= 0 || count > 100)
+        {
+            _threadCount = Environment.ProcessorCount;
+        }
+
+        _threadCount = count;
     }
 }
