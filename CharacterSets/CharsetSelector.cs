@@ -6,8 +6,10 @@ public static class CharsetSelector
     {
         { "l", () => PasswordCharacters.LowercaseLetters },
         { "u", () => PasswordCharacters.UppercaseLetters },
+        { "n", () => PasswordCharacters.Numbers },
         { "lu", () => PasswordCharacters.AllLetters },
-        { "lun", () => PasswordCharacters.AllCharacters }
+        { "lun", () => PasswordCharacters.AllLettersAndNumbers },
+        { "luns", () => PasswordCharacters.AllCharacters }
     };
 
     public static char[] GetCharacterSet(string value)
