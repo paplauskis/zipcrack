@@ -35,7 +35,6 @@ class Program
         if (password == null)
         {
             ConsoleLogger.LogPasswordNotFound();
-            
         }
         else
         {
