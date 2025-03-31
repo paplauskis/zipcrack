@@ -19,13 +19,23 @@ public static class PasswordCharacters
         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
     };
     
+    private static char[] _specialChars = new char[] 
+    {
+        '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '=', '~', 
+        '?', ':', ';', '.', ','
+    };
+    
     public static char[] LowercaseLetters => _lowercaseChars;
     
     public static char[] UppercaseLetters => _uppercaseChars;
     
     public static char[] Numbers => _numbers;
     
+    public static char[] SpecialCharacters => _specialChars;
+    
     public static char[] AllLetters => _lowercaseChars.Concat(_uppercaseChars).ToArray();
     
-    public static char[] AllCharacters => _lowercaseChars.Concat(_uppercaseChars).Concat(_numbers).ToArray();
+    public static char[] AllLettersAndNumbers => _lowercaseChars.Concat(_uppercaseChars).Concat(_numbers).ToArray();
+    
+    public static char[] AllCharacters => _lowercaseChars.Concat(_uppercaseChars).Concat(_numbers).Concat(_specialChars).ToArray();
 }
