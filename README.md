@@ -1,4 +1,5 @@
-**ZipCrack** - .NET console application to execute multithreaded brute-force and dictionary attacks on password protected ZIP files.
+# ZipCrack
+*.NET console application to execute multithreaded brute-force and dictionary attacks on password protected ZIP files.*
 
 ## Features
 
