@@ -19,11 +19,15 @@ public class BruteForceAttack : BaseAttack
     
     public override string? GetPassword()
     {
-        GenerateStringCombinations();
+        Parallel.ForEach(_characters, new ParallelOptions { MaxDegreeOfParallelism = _threadCount }, ch =>
+        {
+            GenerateStringCombinations(ch.ToString());
+        });
+        
         return _password;
     }
 
-    private void GenerateStringCombinations(string current = "")
+    private void GenerateStringCombinations(string current)
     {
         if (current.Length >= _minPasswordLength && _passwordChecker.IsValid(current))
         {
